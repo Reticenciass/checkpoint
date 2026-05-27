@@ -1,0 +1,17 @@
+{
+  "name": "checkpoint",
+  "version": "2.0.0",
+  "description": "Global Hotkey Manager for Windows — Assign keyboard shortcuts to open apps, URLs, focus windows, or run commands. Runs silently in the system tray.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "node build.js"
+  },
+  "keywords": ["hotkey", "shortcut", "windows", "tray", "productivity"],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^42.2.0"
+  }
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Checkpoint</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Titlebar -->
+    <div class="titlebar">
+      <div class="titlebar-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+          <line x1="4" y1="22" x2="4" y2="15"></line>
+        </svg>
+        Checkpoint
+      </div>
+      <div class="titlebar-controls">
+        <button class="btn-icon" id="btn-minimize" title="Minimize to tray">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <button class="btn-icon btn-close" id="btn-close" title="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Body: Sidebar + Content -->
+    <div class="app-body">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-nav">
+          <button class="nav-item active" data-page="binds">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/><path d="M8 16h8"/></svg>
+            <span>Binds</span>
+            <span class="nav-badge" id="bind-count">0</span>
+          </button>
+          <button class="nav-item" data-page="profiles">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>Profiles</span>
+          </button>
+          <button class="nav-item" data-page="stats">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            <span>Statistics</span>
+          </button>
+          <button class="nav-item" data-page="settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <button class="nav-item" data-page="about">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>About</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="content">
+        <!-- Page: Binds -->
+        <div class="page active" id="page-binds">
+          <div class="page-header">
+            <div>
+              <h1>Your Binds</h1>
+              <p class="subtitle">Manage your global keyboard shortcuts</p>
+            </div>
+            <div class="header-actions">
+              <div class="search-box" id="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="search-input" placeholder="Search binds...">
+              </div>
+              <button class="btn-icon-only" id="btn-import" title="Import binds">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+              <button class="btn-icon-only" id="btn-export" title="Export binds">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </button>
+              <button class="btn-primary" id="btn-add">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Bind
+              </button>
+            </div>
+          </div>
+          <div class="binds-grid" id="binds-container"></div>
+        </div>
+
+        <!-- Page: Profiles -->
+        <div class="page" id="page-profiles">
+          <div class="page-header">
+            <div>
+              <h1>Profiles</h1>
+              <p class="subtitle">Switch between different bind configurations</p>
+            </div>
+          </div>
+          <div id="profiles-container"></div>
+        </div>
+
+        <!-- Page: Statistics -->
+        <div class="page" id="page-stats">
+          <div class="page-header">
+            <div>
+              <h1>Statistics</h1>
+              <p class="subtitle">Track your hotkey usage</p>
+            </div>
+          </div>
+          <div id="stats-container"></div>
+        </div>
+
+        <!-- Page: Settings -->
+        <div class="page" id="page-settings">
+          <div class="page-header">
+            <div>
+              <h1>Settings</h1>
+              <p class="subtitle">Configure Checkpoint behavior</p>
+            </div>
+          </div>
+          <div id="settings-container"></div>
+        </div>
+
+        <!-- Page: About -->
+        <div class="page" id="page-about">
+          <div class="page-header">
+            <div>
+              <h1>About</h1>
+            </div>
+          </div>
+          <div id="about-container"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-indicator" id="status-indicator"></span>
+        <span id="status-text">Ready</span>
+      </div>
+      <div class="status-right">
+        <span class="kbd-hint">Ctrl+N New</span>
+        <span class="kbd-hint">Ctrl+F Search</span>
+        <span class="kbd-hint">Ctrl+E Export</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2 id="modal-title">Add New Bind</h2>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="bind-name" placeholder="e.g. Open GitHub">
+      </div>
+
+      <div class="form-group">
+        <label>Shortcut</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="bind-shortcut" placeholder="Click Capture..." readonly style="flex:1;">
+          <button class="btn-secondary" id="btn-capture">Capture</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Action</label>
+        <select id="bind-action">
+          <option value="url">Open URL in Browser</option>
+          <option value="app">Launch Application</option>
+          <option value="cmd">Run Command</option>
+          <option value="focus">Focus Window</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-target">Target (URL)</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="bind-target" placeholder="https://github.com" style="flex:1;">
+          <button class="btn-secondary" id="btn-browse" style="display:none;">Browse</button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btn-cancel">Cancel</button>
+        <button class="btn-primary" id="btn-save">Save Bind</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt Modal -->
+  <div class="modal-overlay" id="prompt-modal">
+    <div class="modal" style="width: 360px;">
+      <h2 id="prompt-title">Enter Value</h2>
+      <div class="form-group">
+        <label id="prompt-label">Value</label>
+        <input type="text" id="prompt-input" placeholder="">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="prompt-cancel">Cancel</button>
+        <button class="btn-primary" id="prompt-ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container (populated by JS) -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

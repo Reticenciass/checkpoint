@@ -1,0 +1,130 @@
+/*
+ * checkpoint.rc  --  Win32 Resource Script
+ * References: resource.h for IDs
+ *
+ * All dialog strings are overridden at runtime by the dialog procedures
+ * in gui.c for bilingual support.
+ */
+#include <windows.h>
+#include "resource.h"
+
+/* ---- Application Icon ---- */
+IDI_ICON_MAIN   ICON    "checkpoint.ico"
+
+/* ---- Tray Context Menu ---- */
+IDM_TRAY MENU
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "Open Checkpoint",     ID_TRAY_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "Pause All Hotkeys",   ID_TRAY_PAUSE
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                ID_TRAY_EXIT
+    END
+END
+
+/* ---- Main Application Menu ---- */
+IDM_MAIN MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit\tAlt+F4",       ID_FILE_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Settings",           ID_VIEW_SETTINGS
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Checkpoint",   ID_HELP_ABOUT
+    END
+END
+
+/* =========================================================================
+ *  Edit / Add Bind Dialog
+ *  Size: 340 x 195 DLUs
+ * ========================================================================= */
+IDD_EDIT_BIND DIALOGEX 0, 0, 340, 195
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add / Edit Bind"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    /* Row 1 - Name */
+    LTEXT           "Name:",            IDC_STATIC,         7,  11, 44,  8
+    EDITTEXT        IDC_EDIT_NAME,                         55,   9, 278, 14,
+                    ES_AUTOHSCROLL
+
+    /* Row 2 - Shortcut */
+    LTEXT           "Shortcut:",        IDC_STATIC,         7,  31, 44,  8
+    EDITTEXT        IDC_EDIT_SHORTCUT,                     55,  29, 163, 14,
+                    ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Capture Key",      IDC_BTN_CAPTURE,  223,  29, 110, 14
+
+    /* Row 3 - Action */
+    LTEXT           "Action:",          IDC_STATIC,         7,  51, 44,  8
+    COMBOBOX        IDC_COMBO_ACTION,                      55,  49, 278, 60,
+                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    /* Row 4 - Target */
+    LTEXT           "Target:",          IDC_STATIC,         7,  71, 44,  8
+    EDITTEXT        IDC_EDIT_TARGET,                       55,  69, 236, 14,
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",        IDC_BTN_BROWSE,   297,  69,  36, 14
+
+    /* Row 5 - Hint */
+    LTEXT           "",                 IDC_LBL_TARGET_HINT, 55, 86, 278, 8
+
+    /* Row 6 - Arguments */
+    LTEXT           "Arguments:",       IDC_STATIC,         7, 101, 44,  8
+    EDITTEXT        IDC_EDIT_ARGS,                         55,  99, 278, 14,
+                    ES_AUTOHSCROLL
+
+    /* Row 7 - Enabled checkbox */
+    CONTROL         "Enabled",          IDC_CHK_ENABLED,
+                    "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 55, 121, 60, 10
+
+    /* Row 8 - Help label */
+    LTEXT           "",                 IDC_LBL_CAPTURE_HELP, 7, 140, 326, 18,
+                    SS_SUNKEN
+
+    /* Buttons */
+    DEFPUSHBUTTON   "OK",               IDOK,             226, 175,  50, 14
+    PUSHBUTTON      "Cancel",           IDCANCEL,         283, 175,  50, 14
+END
+
+/* =========================================================================
+ *  Settings Dialog
+ * ========================================================================= */
+IDD_SETTINGS DIALOGEX 0, 0, 230, 105
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "Language:",        IDC_STATIC,         7, 13, 50,  8
+    COMBOBOX        IDC_COMBO_LANG,                        62, 11, 96, 40,
+                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    CONTROL         "Start with Windows", IDC_CHK_STARTUP,
+                    "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 7, 35, 130, 10
+
+    DEFPUSHBUTTON   "OK",               IDOK,             116, 84,  50, 14
+    PUSHBUTTON      "Cancel",           IDCANCEL,         173, 84,  50, 14
+END
+
+/* =========================================================================
+ *  About Dialog
+ * ========================================================================= */
+IDD_ABOUT DIALOGEX 0, 0, 270, 140
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Checkpoint"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    ICON            IDI_ICON_MAIN,      IDC_ABOUT_ICON,     7,  7, 20, 20
+    LTEXT           "Checkpoint  v1.0", IDC_STATIC,        40,  7, 180, 10,
+                    SS_LEFT
+    /* Body text - IDC_ABOUT_ICON + 1 = 1401 */
+    LTEXT           "",                 1401,               40, 22, 223, 75,
+                    SS_LEFT
+    DEFPUSHBUTTON   "Close",            IDOK,             110, 119,  50, 14
+END
