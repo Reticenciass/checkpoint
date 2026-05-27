@@ -32,7 +32,7 @@
 ### Install & Run
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/checkpoint.git
+git clone https://github.com/Reticenciass/checkpoint.git
 cd checkpoint
 npm install
 npm start
